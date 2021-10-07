@@ -1,33 +1,22 @@
-name: Manual Workflow and Environment Variables
+name: Test The Self-Hosted Runner
 
-env:
-  scope: Workflow
-  company: LNRS
-    
 on:
   push:
-    branches: main
-    
-  workflow_dispatch:
-    inputs:
-      company:
-        description: 'Company Name'
-        required: true
-        default: LNRS
-        
+    branches: test_runner
+       
 
 jobs:
   build:
-    runs-on: ubuntu-latest      
+    runs-on: actions_demo_openstack      
     steps:    
       - name: Display the Message
         run: |
-          echo ${{github.event.inputs.company}}
-          echo ${{secrets.MY_SECRET}}
-          echo ${{env.scope}}
+          echo ${{github.job}}
+          echo ${{github.ref}}
+
           
   test:
-    runs-on: ubuntu-latest  
+    runs-on: actions_demo_openstack  
     needs: build
     steps:    
       - name: Display Job Name
@@ -35,7 +24,7 @@ jobs:
           echo "This is ${{github.job}}"
 
   deploy:
-    runs-on: ubuntu-latest  
+    runs-on: actions_demo_openstack  
     needs: [build, test] 
     steps:    
       - name: Display Job Name
