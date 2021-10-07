@@ -13,20 +13,24 @@ jobs:
         run: |
           echo ${{github.job}}
           echo ${{github.ref}}
+          echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME"
+          echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME"
 
           
-  test:
-    runs-on: actions_demo_openstack  
-    needs: build
-    steps:    
-      - name: Display Job Name
-        run: |
-          echo "This is ${{github.job}}"
+#   test:
+#     runs-on: actions_demo_openstack  
+#     needs: build
+#     steps:    
+#       - name: Display Job Name
+#         run: |
+#           echo "This is ${{github.job}}"
 
-  deploy:
-    runs-on: actions_demo_openstack  
-    needs: [build, test] 
-    steps:    
-      - name: Display Job Name
-        run: |
-          echo "This is ${{github.job}}"
+#   deploy:
+#     runs-on: actions_demo_openstack  
+#     needs: [build, test] 
+#     steps:    
+#       - name: Display Job Name
+#         run: |
+#           echo "This is ${{github.job}}"
