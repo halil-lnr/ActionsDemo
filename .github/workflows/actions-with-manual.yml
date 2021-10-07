@@ -13,8 +13,6 @@ jobs:
         run: |
           echo ${{github.job}}
           echo ${{github.ref}}
-          echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$BRANCH_NAME"
           echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
           echo "BRANCH_NAME=$BRANCH_NAME"
 
